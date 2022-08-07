@@ -4,8 +4,20 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Singup = () => {
+  const accountCreated = () =>
+    toast.success("Conta criada com sucesso!", { autoClose: 1000 });
+
+  const accountError = () =>
+    toast.error("Ops! Algo deu errado", {
+      autoClose: 1000,
+      position: "top-left",
+    });
+
   const navigate = useNavigate();
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -56,8 +68,10 @@ const Singup = () => {
     await api
       .post("users", newData)
       .then((response) => {
-        navigate("/");
-        response.status === 201 ? navigate("/") : window.alert("erro");
+        // navigate("/");
+        response.status === 201
+          ? navigate("/") && accountCreated()
+          : accountError();
       })
       .catch((err) => console.warn(err));
   };

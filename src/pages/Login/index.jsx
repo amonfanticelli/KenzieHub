@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -20,7 +20,10 @@ const Login = () => {
 
   const navigate = useNavigate();
   const formSchema = yup.object().shape({
-    email: yup.string().email().required("Email obrigatório"),
+    email: yup
+      .string()
+      .email("Precisar se um email")
+      .required("Email obrigatório"),
     password: yup.string().required("Senha obrigatória"),
   });
 
@@ -56,10 +59,20 @@ const Login = () => {
           <h2>Login</h2>
         </div>
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" {...register("email")} />
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          {...register("email")}
+        />
         <span>{errors.email?.message}</span>
         <label htmlFor="password">Senha</label>
-        <input id="password" type="password" {...register("password")} />
+        <input
+          id="password"
+          type="password"
+          placeholder="Senha"
+          {...register("password")}
+        />
         <span>{errors.password?.message}</span>
         <button className="login" type="submit">
           Entrar
