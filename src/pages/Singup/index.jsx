@@ -7,7 +7,6 @@ import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { BiErrorCircle } from "react-icons/bi";
 import Input from "../../components/Input";
 
 const Singup = () => {
@@ -125,7 +124,7 @@ const Singup = () => {
           id="userPassword"
           placeholder="Digite aqui seu senha"
           label="Senha"
-          {...register("email")}
+          {...register("password")}
           error={errors?.password}
           type="password"
         />
@@ -153,8 +152,8 @@ const Singup = () => {
           placeholder="Opção de contato"
           label="Contato"
           {...register("contact")}
-          error={errors?.bio}
-          type="text"
+          error={errors?.contact}
+          type="number"
         />
 
         <label htmlFor="select"> Selecionar Módulo</label>
