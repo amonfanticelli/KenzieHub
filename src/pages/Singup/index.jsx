@@ -7,6 +7,8 @@ import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { BiErrorCircle } from "react-icons/bi";
+import Input from "../../components/Input";
 
 const Singup = () => {
   const accountCreated = () =>
@@ -68,7 +70,6 @@ const Singup = () => {
     await api
       .post("users", newData)
       .then((response) => {
-        // navigate("/");
         response.status === 201
           ? navigate("/") && accountCreated()
           : accountError();
@@ -79,66 +80,83 @@ const Singup = () => {
     <Container>
       <ContainerTitle>
         <h1 className="kenzieHubTitle">Kenzie Hub</h1>
-        <button className="returnButton">
-          <Link to="/"> Voltar</Link>{" "}
-        </button>
+        <Link className="returnButton" to="/">
+          {" "}
+          Voltar
+        </Link>{" "}
       </ContainerTitle>
 
       <RegisterForm onSubmit={handleSubmit(onSubmit)}>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
-        <label htmlFor="user">Nome</label>
+
+        <Input
+          id="user"
+          placeholder="Digite aqui seu nome"
+          label="Nome"
+          {...register("name")}
+          error={errors?.name}
+          type="text"
+        />
+        {/* <label htmlFor="user">Nome</label>
+
         <input
           id="user"
           placeholder="Digite aqui seu nome"
           type="text"
           {...register("name")}
-        />
-        <span>{errors.name?.message}</span>
-        <label htmlFor="userEmail">Email</label>
-        <input
+        /> */}
+        {/* {<errors.name?.message&& (<Error>
+            <BiErrorCircle />
+            </Error>
+            )}
+           */}
+        {/* <span>{errors.name?.message}</span> */}
+        <Input
           id="userEmail"
           placeholder="Digite aqui seu email"
-          type="text"
+          label="Email"
           {...register("email")}
+          error={errors?.email}
+          type="text"
         />
-        <span>{errors.email?.message}</span>
-        <label htmlFor="userPassword">Senha</label>
-        <input
+
+        <Input
           id="userPassword"
-          placeholder="Digite aqui sua senha"
+          placeholder="Digite aqui seu senha"
+          label="Senha"
+          {...register("email")}
+          error={errors?.password}
           type="password"
-          {...register("password")}
         />
-        <span>{errors.password?.message}</span>
-        <label htmlFor="userPasswordCheck">Confirmar Senha</label>
-        <input
+
+        <Input
           id="userPasswordCheck"
           placeholder="Digite novamente sua senha"
-          type="password"
+          label="Confirmar Senha"
           {...register("userPasswordCheck")}
+          error={errors?.userPasswordCheck}
+          type="password"
         />
-        <span>{errors.userPasswordCheck?.message}</span>
-        <label className="label" htmlFor="bio">
-          Bio
-        </label>
-        <input
+
+        <Input
           id="bio"
           placeholder="Fale sobre você"
-          type="text"
+          label="Bio"
           {...register("bio")}
+          error={errors?.bio}
+          type="text"
         />
-        <span>{errors.bio?.message}</span>
-        <label className="label" htmlFor="contact">
-          Contato
-        </label>
-        <input
+
+        <Input
           id="contact"
           placeholder="Opção de contato"
-          type="text"
+          label="Contato"
           {...register("contact")}
+          error={errors?.bio}
+          type="text"
         />
-        <span>{errors.contact?.message}</span>
+
         <label htmlFor="select"> Selecionar Módulo</label>
         <select name="" id="select" {...register("course_module")}>
           <option value="Primeiro módulo (Introdução ao Frontend)<">

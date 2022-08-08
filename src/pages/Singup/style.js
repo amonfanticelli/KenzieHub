@@ -27,7 +27,7 @@ export const ContainerTitle = styled.div`
     color: var(--color-primary);
   }
 
-  button {
+  .returnButton {
     font-style: normal;
     font-weight: 600;
     font-size: 0.75rem;
@@ -35,7 +35,7 @@ export const ContainerTitle = styled.div`
     text-align: center;
     width: 15%;
     height: 100%;
-
+    color: var(--color-grey-0);
     background-color: var(--color-grey-3);
     border-radius: 4px;
 
@@ -44,14 +44,8 @@ export const ContainerTitle = styled.div`
     white-space: nowrap;
     &:hover {
       background-color: var(--color-grey-0);
-
-      a {
-        color: var(--color-grey-4);
-      }
+      color: var(--color-grey-3);
       transition: 0.5s;
-    }
-    a {
-      color: var(--color-grey-0);
     }
   }
   @media screen and (max-width: 1100px) {
@@ -87,10 +81,6 @@ export const RegisterForm = styled.form`
     font-weight: 400;
     font-size: 12px;
     line-height: 22px;
-    /* identical to box height, or 183% */
-
-    /* grey-1 */
-
     color: var(--color-grey-1);
   }
   label {
@@ -101,6 +91,20 @@ export const RegisterForm = styled.form`
     font-size: 0.75rem;
     color: var(--color-grey-0);
   }
+
+  /* .inputContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    svg {
+      position: absolute;
+      color: red;
+      right: 10%;
+      bottom: 30%;
+    }
+  } */
+
   input {
     width: 90%;
     height: 2.8rem;
@@ -133,6 +137,22 @@ export const RegisterForm = styled.form`
       background-color: var(--color-primary);
       transition: 0.8s;
     }
+  }
+  select {
+    width: 90%;
+    height: 2.8rem;
+    min-height: 1.5rem;
+    padding-left: 1rem;
+
+    color: var(--color-grey-1);
+    background-color: var(--color-grey-2);
+    border: 1.2182px solid #343b41;
+    border-radius: 4px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.625rem;
   }
   @media screen and (max-width: 1100px) {
     width: 90%;

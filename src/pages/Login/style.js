@@ -19,6 +19,7 @@ export const Container = styled.section`
 `;
 
 export const LoginForm = styled.form`
+  position: relative;
   margin-top: 7rem;
   display: flex;
   flex-direction: column;
@@ -68,6 +69,12 @@ export const LoginForm = styled.form`
     line-height: 1.625rem;
   }
 
+  .passwordIconShow {
+    position: absolute;
+    right: 10%;
+    bottom: 52%;
+  }
+
   .login {
     width: 90%;
     height: 2.8rem;
@@ -96,14 +103,16 @@ export const LoginForm = styled.form`
     height: 2.8rem;
     min-height: 1.5rem;
     margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-grey-0);
 
     background: var(--color-grey-1);
 
     border: 1.2182px solid #59323f;
     border-radius: 4px;
-    a {
-      color: var(--color-grey-0);
-    }
+
     &:hover {
       transition: 0.8s;
       background: var(--color-grey-4);

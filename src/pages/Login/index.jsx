@@ -4,11 +4,19 @@ import { useNavigate, Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import React from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const Login = () => {
+  let inputType = "password";
+  const [visible, setVisibility] = useState("password");
+  const changeInputType = () => {
+    console.warn(inputType);
+    visible === "password" ? setVisibility("text") : setVisibility("password");
+  };
   const notifyAddCart = () =>
     toast.success("Adicionado ao carrinho!", { autoClose: 1000 });
 
@@ -22,7 +30,7 @@ const Login = () => {
   const formSchema = yup.object().shape({
     email: yup
       .string()
-      .email("Precisar se um email")
+      .email("Precisa ser um email")
       .required("Email obrigatório"),
     password: yup.string().required("Senha obrigatória"),
   });
@@ -69,18 +77,23 @@ const Login = () => {
         <label htmlFor="password">Senha</label>
         <input
           id="password"
-          type="password"
+          type={visible}
           placeholder="Senha"
           {...register("password")}
+        />{" "}
+        <FaRegEye
+          onClick={() => changeInputType()}
+          className="passwordIconShow"
         />
         <span>{errors.password?.message}</span>
         <button className="login" type="submit">
           Entrar
         </button>
         <span>Ainda não possui uma conta?</span>
-        <button className="registerButton">
-          <Link to="/Register"> Cadastre-se</Link>{" "}
-        </button>
+        <Link className="registerButton" to="/Register">
+          {" "}
+          Cadastre-se
+        </Link>
       </LoginForm>
     </Container>
   );
