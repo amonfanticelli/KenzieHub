@@ -65,15 +65,16 @@ const Singup = () => {
       contact,
       course_module,
     };
-    console.log(newData);
+
     await api
       .post("users", newData)
       .then((response) => {
-        response.status === 201
-          ? navigate("/") && accountCreated()
-          : accountError();
+        if (response.status === 201) {
+          accountCreated();
+          return navigate("/");
+        }
       })
-      .catch((err) => console.warn(err));
+      .catch((err) => accountError());
   };
   return (
     <Container>
