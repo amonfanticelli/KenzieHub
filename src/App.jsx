@@ -2,10 +2,11 @@ import Routes from "./routes";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <Routes />
       <ToastContainer
         position="top-right"
@@ -18,7 +19,7 @@ function App() {
         draggable
         pauseOnHover
       />
-    </>
+    </UserProvider>
   );
 }
 

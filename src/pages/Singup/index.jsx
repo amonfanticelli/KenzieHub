@@ -2,24 +2,14 @@ import { RegisterForm, Container, ContainerTitle } from "./style";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import api from "../../services/api";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Input from "../../components/Input";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const Singup = () => {
-  const accountCreated = () =>
-    toast.success("Conta criada com sucesso!", { autoClose: 1000 });
-
-  const accountError = () =>
-    toast.error("Ops! Algo deu errado", {
-      autoClose: 1000,
-      position: "top-left",
-    });
-
-  const navigate = useNavigate();
+  const { handleRegister } = useContext(UserContext);
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
     email: yup
@@ -49,33 +39,6 @@ const Singup = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = async ({
-    email,
-    password,
-    name,
-    bio,
-    contact,
-    course_module,
-  }) => {
-    const newData = {
-      email,
-      password,
-      name,
-      bio,
-      contact,
-      course_module,
-    };
-
-    await api
-      .post("users", newData)
-      .then((response) => {
-        if (response.status === 201) {
-          accountCreated();
-          return navigate("/");
-        }
-      })
-      .catch((err) => accountError());
-  };
   return (
     <Container>
       <ContainerTitle>
@@ -86,7 +49,7 @@ const Singup = () => {
         </Link>{" "}
       </ContainerTitle>
 
-      <RegisterForm onSubmit={handleSubmit(onSubmit)}>
+      <RegisterForm onSubmit={handleSubmit(handleRegister)}>
         <h2>Crie sua conta</h2>
         <p>Rapido e grátis, vamos nessa</p>
 

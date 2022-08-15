@@ -1,10 +1,31 @@
-import { useNavigate, Link } from "react-router-dom";
-import { Container, Header, Section, Main, Line } from "./style";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Header,
+  Section,
+  Main,
+  Line,
+  HeaderContainer,
+  SectionContainer,
+} from "./style";
 import { motion } from "framer-motion";
+import { UserContext } from "../../contexts/UserContext";
+import { useContext, useEffect } from "react";
+import { BsPlusLg } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
+
+import Modal from "../../components/Modal";
+import { useState } from "react";
 
 const Dashboard = () => {
-  const user = JSON.parse(localStorage.getItem("@userData"));
+  const { login, handleGetUserId, getTechList } = useContext(UserContext);
+  const [isModalOpen, setModal] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleGetUserId();
+  }, [handleGetUserId]);
+
   const removeUser = () => {
     localStorage.clear();
     navigate("/");
@@ -18,24 +39,43 @@ const Dashboard = () => {
       transition={{ duration: 2 }}
     >
       <Container>
+        {isModalOpen && <Modal setModal={setModal} />}
+
         <Header>
-          <h1>Kenzie Hub </h1>
-          <button onClick={() => removeUser()}>Sair</button>
+          <HeaderContainer>
+            <h1>Kenzie Hub </h1>
+            <button onClick={() => removeUser()}>Sair</button>
+          </HeaderContainer>
         </Header>
         <Line></Line>
         <Section>
-          <h1>Olá, {user.name}</h1>
-          <span>{user.course_module}</span>
+          <SectionContainer>
+            <h1>Olá, {login.name}</h1>
+            <span>{login.course_module}</span>
+          </SectionContainer>
         </Section>
         <Line></Line>
         <Main>
-          <div>
-            <h1>Que pena! estamos em desenvolvimento </h1>
-            <span>
-              Nossa aplicação está em desenvolvimento, em breve teremos
-              novidades
-            </span>
-          </div>
+          <section>
+            <h1>Tecnologias </h1>
+            <button onClick={() => setModal(!isModalOpen)}>
+              <BsPlusLg />
+            </button>
+          </section>
+          <ul>
+            {getTechList.map((tech) => (
+              <li key={tech.id}>
+                <h2>{tech.title}</h2>
+                <div>
+                  <span>{tech.status}</span>
+                  <button>
+                    {" "}
+                    <BsFillTrashFill />{" "}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
         </Main>
       </Container>
     </motion.div>
