@@ -13,18 +13,21 @@ import { UserContext } from "../../contexts/UserContext";
 import { useContext, useEffect } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
-
+import ModalEditRemove from "../../components/ModalEditRemove";
 import Modal from "../../components/Modal";
 import { useState } from "react";
 
 const Dashboard = () => {
   const { login, handleGetUserId, getTechList } = useContext(UserContext);
   const [isModalOpen, setModal] = useState(false);
+  const [isModalEditOpen, setModalEdit] = useState(false);
+  const [currentObject, setCurrentObject] = useState({});
+
   const navigate = useNavigate();
 
   useEffect(() => {
     handleGetUserId();
-  }, [handleGetUserId]);
+  }, []);
 
   const removeUser = () => {
     localStorage.clear();
@@ -40,6 +43,12 @@ const Dashboard = () => {
     >
       <Container>
         {isModalOpen && <Modal setModal={setModal} />}
+        {isModalEditOpen && (
+          <ModalEditRemove
+            currentObject={currentObject}
+            setModalEdit={setModalEdit}
+          />
+        )}
 
         <Header>
           <HeaderContainer>
@@ -68,7 +77,12 @@ const Dashboard = () => {
                 <h2>{tech.title}</h2>
                 <div>
                   <span>{tech.status}</span>
-                  <button>
+                  <button
+                    onClick={() => {
+                      setModalEdit(!isModalEditOpen);
+                      setCurrentObject(tech);
+                    }}
+                  >
                     {" "}
                     <BsFillTrashFill />{" "}
                   </button>

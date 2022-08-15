@@ -91,8 +91,36 @@ export const UserProvider = ({ children }) => {
       .get(`/users/${userId}`)
       .then((response) => {
         setTechList(response.data.techs);
+        console.log(response.data.techs);
       })
       .catch((err) => console.warn(err));
+  };
+
+  const handleEditTech = (id) => {
+    const token = localStorage.getItem("@token");
+    api
+      .put(`/users/techs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        techCreated();
+      });
+  };
+
+  const handleRemoveTech = (currentObject) => {
+    const token = localStorage.getItem("@token");
+    api
+      .delete(`/users/techs/${currentObject.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        techCreated();
+        setTechList(
+          getTechList.filter((element) => {
+            return element.id !== currentObject.id;
+          })
+        );
+      });
   };
 
   return (
@@ -104,6 +132,8 @@ export const UserProvider = ({ children }) => {
         handleGetUserId,
         handleLogin,
         handleRegister,
+        handleEditTech,
+        handleRemoveTech,
       }}
     >
       {children}
