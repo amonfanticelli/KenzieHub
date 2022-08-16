@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
   const [login, setLogin] = useState([]);
   const [getTechList, setTechList] = useState([]);
+  const [currentObject, setCurrentObject] = useState({});
 
   const techCreated = () =>
     toast.success("Tecnologia adicionada com sucesso!", { autoClose: 1000 });
@@ -74,8 +75,6 @@ export const UserProvider = ({ children }) => {
   const handlePostTech = (data) => {
     const token = localStorage.getItem("@token");
 
-    console.log(token);
-    console.log(data);
     api
       .post("users/techs", data, {
         headers: { Authorization: `Bearer ${token}` },
@@ -90,21 +89,16 @@ export const UserProvider = ({ children }) => {
     api
       .get(`/users/${userId}`)
       .then((response) => {
+        console.log(response.data);
+        const userData = {
+          name: response.data.name,
+          course_module: response.data.course_module,
+        };
+        setLogin(userData);
         setTechList(response.data.techs);
-        console.log(response.data.techs);
       })
-      .catch((err) => console.warn(err));
-  };
 
-  const handleEditTech = (id) => {
-    const token = localStorage.getItem("@token");
-    api
-      .put(`/users/techs/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        techCreated();
-      });
+      .catch((err) => console.warn(err));
   };
 
   const handleRemoveTech = (currentObject) => {
@@ -132,8 +126,10 @@ export const UserProvider = ({ children }) => {
         handleGetUserId,
         handleLogin,
         handleRegister,
-        handleEditTech,
+
         handleRemoveTech,
+        currentObject,
+        setCurrentObject,
       }}
     >
       {children}

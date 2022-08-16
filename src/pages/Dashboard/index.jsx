@@ -12,16 +12,21 @@ import { motion } from "framer-motion";
 import { UserContext } from "../../contexts/UserContext";
 import { useContext, useEffect } from "react";
 import { BsPlusLg } from "react-icons/bs";
-import { BsFillTrashFill } from "react-icons/bs";
+import { RiFileEditLine } from "react-icons/ri";
 import ModalEditRemove from "../../components/ModalEditRemove";
-import Modal from "../../components/Modal";
+import Modal from "../../components/ModalAddTech";
 import { useState } from "react";
 
 const Dashboard = () => {
-  const { login, handleGetUserId, getTechList } = useContext(UserContext);
+  const {
+    login,
+    handleGetUserId,
+    getTechList,
+    currentObject,
+    setCurrentObject,
+  } = useContext(UserContext);
   const [isModalOpen, setModal] = useState(false);
   const [isModalEditOpen, setModalEdit] = useState(false);
-  const [currentObject, setCurrentObject] = useState({});
 
   const navigate = useNavigate();
 
@@ -84,7 +89,7 @@ const Dashboard = () => {
                     }}
                   >
                     {" "}
-                    <BsFillTrashFill />{" "}
+                    <RiFileEditLine />{" "}
                   </button>
                 </div>
               </li>
