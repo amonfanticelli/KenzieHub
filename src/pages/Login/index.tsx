@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext, UserLogin } from "../../contexts/UserContext";
 
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
@@ -31,7 +31,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<UserLogin>({
     resolver: yupResolver(formSchema),
   });
 

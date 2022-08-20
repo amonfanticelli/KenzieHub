@@ -1,12 +1,16 @@
 import { Container, Form } from "./style";
 import { ImCross } from "react-icons/im";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext, Tech } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-const Modal = ({ setModal }) => {
+interface ModalProps {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Modal = ({ setModal }: ModalProps) => {
   const formSchema = yup.object().shape({
     title: yup.string().required("Tecnologia obrigatória"),
   });
@@ -15,7 +19,7 @@ const Modal = ({ setModal }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Tech>({
     resolver: yupResolver(formSchema),
   });
 

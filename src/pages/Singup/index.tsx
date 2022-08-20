@@ -3,10 +3,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
-import React from "react";
 import Input from "../../components/Input";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { User, UserContext } from "../../contexts/UserContext";
 
 const Singup = () => {
   const { handleRegister } = useContext(UserContext);
@@ -35,7 +34,7 @@ const Singup = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Omit<User, "id"> & { userPasswordCheck: string }>({
     resolver: yupResolver(formSchema),
   });
 
@@ -121,7 +120,7 @@ const Singup = () => {
         />
 
         <label htmlFor="select"> Selecionar Módulo</label>
-        <select name="" id="select" {...register("course_module")}>
+        <select id="select" {...register("course_module")}>
           <option value="Primeiro módulo (Introdução ao Frontend)<">
             Primeiro Módulo
           </option>

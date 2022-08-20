@@ -1,16 +1,66 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SubmitHandler } from "react-hook-form";
 
-export const UserContext = createContext([]);
+export interface UserLogin {
+  email: string;
+  password: string;
+}
 
-export const UserProvider = ({ children }) => {
+export interface User {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  bio: string;
+  contact: number;
+  course_module: string;
+}
+
+interface UserProps {
+  children: ReactNode;
+}
+
+export interface UserProviderData {
+  login: {
+    name: string;
+    course_module: string;
+  };
+  getTechList: Tech[];
+  handlePostTech: (data: Omit<Tech, "id">) => void;
+  handleGetUserId: () => void;
+  handleLogin: (data: UserLogin) => void;
+  handleRegister: (data: Omit<User, "id">) => void;
+  handleRemoveTech: (currentObject: Tech) => void;
+  currentObject: Tech;
+  handleEditTech: (data: TechEdit) => void;
+  setCurrentObject: React.Dispatch<React.SetStateAction<Tech>>;
+}
+
+export interface Tech {
+  title: string;
+  status: string;
+  id: string;
+}
+
+export interface TechEdit {
+  status: string;
+}
+
+export const UserContext = createContext<UserProviderData>(
+  {} as UserProviderData
+);
+
+export const UserProvider = ({ children }: UserProps) => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState([]);
-  const [getTechList, setTechList] = useState([]);
-  const [currentObject, setCurrentObject] = useState({});
+  const [login, setLogin] = useState<UserProviderData["login"]>(
+    {} as UserProviderData["login"]
+  );
+  const [getTechList, setTechList] = useState<Tech[]>([]);
+  const [currentObject, setCurrentObject] = useState<Tech>({} as Tech);
 
   const techCreated = () =>
     toast.success("Tecnologia adicionada com sucesso!", { autoClose: 1000 });
@@ -31,7 +81,7 @@ export const UserProvider = ({ children }) => {
     bio,
     contact,
     course_module,
-  }) => {
+  }: Omit<User, "id">) => {
     const newData = {
       email,
       password,
@@ -52,7 +102,24 @@ export const UserProvider = ({ children }) => {
       .catch((err) => accountError());
   };
 
-  const handleLogin = (data) => {
+  const handleEditTech: SubmitHandler<TechEdit> = (data: TechEdit) => {
+    // const techEdit = {
+    //   title: title,
+    //   status: status,
+    // };
+    console.log(data);
+    const token = localStorage.getItem("@token");
+    api
+      .put(`/users/techs/${currentObject.id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.warn(err));
+  };
+
+  const handleLogin = (data: UserLogin) => {
     api
       .post("/sessions", data)
       .then((response) => {
@@ -72,22 +139,14 @@ export const UserProvider = ({ children }) => {
       .catch((err) => console.warn(err));
   };
 
-  const handlePostTech = (data) => {
-    const token = localStorage.getItem("@token");
-
-    api
-      .post("users/techs", data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-
-      .then((response) => techCreated())
-      .catch((err) => console.warn(err));
-  };
-
   const handleGetUserId = () => {
     const userId = localStorage.getItem("@userId");
     api
-      .get(`/users/${userId}`)
+      .get<{
+        name: string;
+        course_module: string;
+        techs: Tech[];
+      }>(`/users/${userId}`)
       .then((response) => {
         console.log(response.data);
         const userData = {
@@ -101,7 +160,22 @@ export const UserProvider = ({ children }) => {
       .catch((err) => console.warn(err));
   };
 
-  const handleRemoveTech = (currentObject) => {
+  const handlePostTech = (data: Omit<Tech, "id">): void => {
+    const token = localStorage.getItem("@token");
+
+    api
+      .post("users/techs", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      .then((response) => {
+        techCreated();
+        handleGetUserId();
+      })
+      .catch((err) => console.warn(err));
+  };
+
+  const handleRemoveTech = (currentObject: Tech) => {
     const token = localStorage.getItem("@token");
     api
       .delete(`/users/techs/${currentObject.id}`, {
@@ -109,11 +183,7 @@ export const UserProvider = ({ children }) => {
       })
       .then((response) => {
         techCreated();
-        setTechList(
-          getTechList.filter((element) => {
-            return element.id !== currentObject.id;
-          })
-        );
+        handleGetUserId();
       });
   };
 
@@ -126,7 +196,7 @@ export const UserProvider = ({ children }) => {
         handleGetUserId,
         handleLogin,
         handleRegister,
-
+        handleEditTech,
         handleRemoveTech,
         currentObject,
         setCurrentObject,

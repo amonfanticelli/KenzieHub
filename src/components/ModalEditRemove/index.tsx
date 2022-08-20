@@ -1,46 +1,43 @@
 import { Container, Form } from "./style";
 import { ImCross } from "react-icons/im";
-import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { useContext } from "react";
+import { UserContext, Tech, TechEdit } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import api from "../../services/api";
 
-const ModalEditRemove = ({ setModalEdit, currentObject }) => {
-  const [title, setTitle] = useState(currentObject.title);
-  const [status, setStatus] = useState("");
+interface PropsModalEdit {
+  setModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  currentObject: Tech;
+}
 
+const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
   const formSchema = yup.object().shape({
-    title: yup.string().required("Tecnologia obrigatória"),
+    status: yup.string(),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm<TechEdit>({
     resolver: yupResolver(formSchema),
   });
 
-  const handleEditTech = (data) => {
-    // const techEdit = {
-    //   title: title,
-    //   status: status,
-    // };
-    console.log(data);
-    const token = localStorage.getItem("@token");
-    api
-      .put(`/users/techs/${currentObject.id}`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => console.warn(err));
-  };
+  // const handleEditTech = (data: Tech) => {
+  //   // const techEdit = {
+  //   //   title: title,
+  //   //   status: status,
+  //   // };
+  //   console.log(data);
+  //   const token = localStorage.getItem("@token");
+  //   api
+  //     .put(`/users/techs/${currentObject.id}`, data, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((err) => console.warn(err));
+  // };
 
-  const { handleRemoveTech } = useContext(UserContext);
+  const { handleRemoveTech, handleEditTech } = useContext(UserContext);
   return (
     <Container>
       <div>
@@ -54,8 +51,7 @@ const ModalEditRemove = ({ setModalEdit, currentObject }) => {
         <Form onSubmit={handleSubmit(handleEditTech)}>
           <label htmlFor="title">Nome</label>
           <input
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={currentObject.title}
             placeholder={
               currentObject === null || currentObject === undefined
                 ? "Tecnologia"
@@ -63,15 +59,10 @@ const ModalEditRemove = ({ setModalEdit, currentObject }) => {
             }
             id="title"
             type="text"
-            {...register("title")}
           />
-          <span>{errors.title?.message}</span>
+
           <label htmlFor="status">Selecionar status</label>
-          <select
-            onChange={(event) => setStatus(event.target.value)}
-            {...register("status")}
-            id="status"
-          >
+          <select {...register("status")} id="status">
             <option value="Iniciante">Iniciante</option>
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>
