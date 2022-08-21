@@ -65,8 +65,17 @@ export const UserProvider = ({ children }: UserProps) => {
   const techCreated = () =>
     toast.success("Tecnologia adicionada com sucesso!", { autoClose: 1000 });
 
+  const techEdited = () =>
+    toast.success("Tecnologia editada com sucesso!", { autoClose: 1000 });
+
+  const techRemoved = () =>
+    toast.error("Tecnologia removida com sucesso!", { autoClose: 1000 });
+
   const accountCreated = () =>
     toast.success("Conta criada com sucesso!", { autoClose: 1000 });
+
+  const passwordOrEmailError = () =>
+    toast.error("Senha ou email incorreto!", { autoClose: 1000 });
 
   const accountError = () =>
     toast.error("Ops! Algo deu errado", {
@@ -114,6 +123,8 @@ export const UserProvider = ({ children }: UserProps) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
+        techEdited();
+        handleGetUserId();
         console.log(response);
       })
       .catch((err) => console.warn(err));
@@ -123,18 +134,18 @@ export const UserProvider = ({ children }: UserProps) => {
     api
       .post("/sessions", data)
       .then((response) => {
-        setLogin(response.data.user);
+        if (response.status === 200) {
+          setLogin(response.data.user);
+          console.warn(login);
+          window.localStorage.setItem("@token", response.data.token);
 
-        console.warn(login);
-        // window.localStorage.setItem(
-        //   "@userData",
-        //   JSON.stringify(response.data.user)
-        // );
-        window.localStorage.setItem("@token", response.data.token);
+          window.localStorage.setItem("@userId", response.data.user.id);
 
-        window.localStorage.setItem("@userId", response.data.user.id);
-
-        navigate(`/Dashboard/${response.data.user.id}`);
+          navigate(`/Dashboard/${response.data.user.id}`);
+        }
+        if (response.status === 401) {
+          passwordOrEmailError();
+        }
       })
       .catch((err) => console.warn(err));
   };
@@ -182,7 +193,7 @@ export const UserProvider = ({ children }: UserProps) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        techCreated();
+        techRemoved();
         handleGetUserId();
       });
   };

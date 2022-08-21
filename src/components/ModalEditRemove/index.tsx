@@ -20,23 +20,6 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
     resolver: yupResolver(formSchema),
   });
 
-  // const handleEditTech = (data: Tech) => {
-  //   // const techEdit = {
-  //   //   title: title,
-  //   //   status: status,
-  //   // };
-  //   console.log(data);
-  //   const token = localStorage.getItem("@token");
-  //   api
-  //     .put(`/users/techs/${currentObject.id}`, data, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((err) => console.warn(err));
-  // };
-
   const { handleRemoveTech, handleEditTech } = useContext(UserContext);
   return (
     <Container>
@@ -51,7 +34,7 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
         <Form onSubmit={handleSubmit(handleEditTech)}>
           <label htmlFor="title">Nome</label>
           <input
-            value={currentObject.title}
+            // value={currentObject.title}
             placeholder={
               currentObject === null || currentObject === undefined
                 ? "Tecnologia"
@@ -67,14 +50,7 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>
           </select>
-          <button
-          // onClick={(event) => {
-          //   event.preventDefault();
-          //   handleEditTech(currentObject.id, title, status);
-          // }}
-          >
-            Editar Tecnologia
-          </button>
+          <button>Editar Tecnologia</button>
           <button
             onClick={(event) => {
               event.preventDefault();
