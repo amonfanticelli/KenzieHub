@@ -120,6 +120,12 @@ export const Main = styled.main`
     }
   }
 
+  .dashboardImg {
+    width: 50%;
+    min-width: 270px;
+    height: 600px;
+  }
+
   ul {
     width: 70%;
 

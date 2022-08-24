@@ -15,7 +15,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { RiFileEditLine } from "react-icons/ri";
 import ModalEditRemove from "../../components/ModalEditRemove";
 import Modal from "../../components/ModalAddTech";
-import { useState } from "react";
+import DashboardImg from "../../img/remote-team.svg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -79,25 +79,33 @@ const Dashboard = () => {
               <BsPlusLg />
             </button>
           </section>
-          <ul>
-            {getTechList.map((tech) => (
-              <li key={tech.id}>
-                <h2>{tech.title}</h2>
-                <div>
-                  <span>{tech.status}</span>
-                  <button
-                    onClick={() => {
-                      setModalEdit(!isModalEditOpen);
-                      setCurrentObject(tech);
-                    }}
-                  >
-                    {" "}
-                    <RiFileEditLine />{" "}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {!getTechList.length ? (
+            <img
+              className="dashboardImg"
+              alt="Imagem cartunesca com pessoas no computador"
+              src={DashboardImg}
+            />
+          ) : (
+            <ul>
+              {getTechList.map((tech) => (
+                <li key={tech.id}>
+                  <h2>{tech.title}</h2>
+                  <div>
+                    <span>{tech.status}</span>
+                    <button
+                      onClick={() => {
+                        setModalEdit(!isModalEditOpen);
+                        setCurrentObject(tech);
+                      }}
+                    >
+                      {" "}
+                      <RiFileEditLine />{" "}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </Main>
       </Container>
     </motion.div>

@@ -119,11 +119,6 @@ export const UserProvider = ({ children }: UserProps) => {
   };
 
   const handleEditTech: SubmitHandler<TechEdit> = (data: TechEdit) => {
-    // const techEdit = {
-    //   title: title,
-    //   status: status,
-    // };
-    console.log(data);
     const token = localStorage.getItem("@token");
     api
       .put(`/users/techs/${currentObject.id}`, data, {
@@ -133,7 +128,6 @@ export const UserProvider = ({ children }: UserProps) => {
         techEdited();
         handleGetUserId();
         setModalEdit(false);
-        console.log(response);
       })
       .catch((err) => console.warn(err));
   };
