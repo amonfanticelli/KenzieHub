@@ -39,6 +39,10 @@ export interface UserProviderData {
   currentObject: Tech;
   handleEditTech: (data: TechEdit) => void;
   setCurrentObject: React.Dispatch<React.SetStateAction<Tech>>;
+  isModalOpen: boolean;
+  isModalEditOpen: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface Tech {
@@ -62,6 +66,8 @@ export const UserProvider = ({ children }: UserProps) => {
   );
   const [getTechList, setTechList] = useState<Tech[]>([]);
   const [currentObject, setCurrentObject] = useState<Tech>({} as Tech);
+  const [isModalOpen, setModal] = useState(false);
+  const [isModalEditOpen, setModalEdit] = useState(false);
 
   const techCreated = () =>
     toast.success("Tecnologia adicionada com sucesso!", { autoClose: 1000 });
@@ -126,6 +132,7 @@ export const UserProvider = ({ children }: UserProps) => {
       .then((response) => {
         techEdited();
         handleGetUserId();
+        setModalEdit(false);
         console.log(response);
       })
       .catch((err) => console.warn(err));
@@ -209,6 +216,10 @@ export const UserProvider = ({ children }: UserProps) => {
         handleRemoveTech,
         currentObject,
         setCurrentObject,
+        isModalOpen,
+        isModalEditOpen,
+        setModal,
+        setModalEdit,
       }}
     >
       {children}

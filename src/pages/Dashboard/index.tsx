@@ -27,9 +27,11 @@ const Dashboard = () => {
     getTechList,
     currentObject,
     setCurrentObject,
+    isModalOpen,
+    setModal,
+    isModalEditOpen,
+    setModalEdit,
   } = useContext(UserContext);
-  const [isModalOpen, setModal] = useState(false);
-  const [isModalEditOpen, setModalEdit] = useState(false);
 
   useEffect(() => {
     handleGetUserId();

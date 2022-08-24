@@ -58,6 +58,7 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
               onClick={(event) => {
                 event.preventDefault();
                 handleRemoveTech(currentObject);
+                setModalEdit(false);
               }}
             >
               Remover
