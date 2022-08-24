@@ -29,6 +29,7 @@ export interface UserProviderData {
     name: string;
     course_module: string;
   };
+
   getTechList: Tech[];
   handlePostTech: (data: Omit<Tech, "id">) => void;
   handleGetUserId: () => void;
@@ -143,11 +144,8 @@ export const UserProvider = ({ children }: UserProps) => {
 
           navigate(`/Dashboard/${response.data.user.id}`);
         }
-        if (response.status === 401) {
-          passwordOrEmailError();
-        }
       })
-      .catch((err) => console.warn(err));
+      .catch((err) => passwordOrEmailError());
   };
 
   const handleGetUserId = () => {

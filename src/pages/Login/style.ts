@@ -9,6 +9,7 @@ export const Container = styled.section`
   background-color: var(--color-grey-4);
 
   h1 {
+    margin-top: 2rem;
     font-style: normal;
     font-weight: 700;
     font-size: 1.7rem;

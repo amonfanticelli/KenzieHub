@@ -13,8 +13,9 @@ export const Container = styled.div`
   position: fixed;
 
   div {
-    width: 400px;
-    height: 350px;
+    min-width: 300px;
+    width: 20%;
+
     background: var(--color-grey-3);
     box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
@@ -24,9 +25,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: space-between;
       padding: 12px 20px;
-      gap: 10px;
       align-items: center;
-
       height: 50px;
       background-color: var(--color-grey-2);
       .titleTecnology {
@@ -47,11 +46,10 @@ export const Container = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  height: 85%;
   gap: 20px;
   justify-content: center;
   align-items: center;
-
+  padding: 20px 0px;
   label {
     width: 90%;
 
@@ -93,18 +91,40 @@ export const Form = styled.form`
     line-height: 1.625rem;
   }
 
-  button {
+  div {
     width: 90%;
-    height: 2.8rem;
-    min-height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
 
-    background: var(--color-primary-negative);
-    color: var(--color-grey-0);
-    border: 1.2182px solid #59323f;
-    border-radius: 4px;
-    &:hover {
-      background-color: var(--color-primary);
-      transition: 0.8s;
+    .buttonSave {
+      width: 60%;
+      height: 2.8rem;
+      min-height: 1.5rem;
+
+      background: var(--color-primary-negative);
+      color: var(--color-grey-0);
+      border: 1.2182px solid #59323f;
+      border-radius: 4px;
+      &:hover {
+        background-color: var(--color-primary);
+        transition: 0.8s;
+      }
+    }
+
+    .buttonRemove {
+      width: 30%;
+      height: 2.8rem;
+      min-height: 1.5rem;
+
+      background: var(--color-grey-1);
+      color: var(--color-grey-0);
+      border: 1.2182px solid var(--color-grey-1);
+      border-radius: 4px;
+      &:hover {
+        border: var(--color-grey-4);
+        background-color: var(--color-grey-4);
+        transition: 0.8s;
+      }
     }
   }
 `;

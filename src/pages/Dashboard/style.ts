@@ -35,6 +35,11 @@ export const Header = styled.header`
     color: var(--color-grey-0);
     background: var(--color-grey-3);
     border-radius: 4px;
+    &:hover {
+      background-color: var(--color-primary);
+
+      transition: 0.5s;
+    }
   }
 `;
 
@@ -50,6 +55,10 @@ export const SectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const Section = styled.section`
@@ -103,6 +112,11 @@ export const Main = styled.main`
       color: var(--color-grey-0);
       background: var(--color-grey-3);
       border-radius: 4px;
+      &:hover {
+        background-color: var(--color-grey-0);
+        color: var(--color-grey-3);
+        transition: 0.5s;
+      }
     }
   }
 
@@ -117,8 +131,11 @@ export const Main = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
     li {
-      width: 90%;
+      width: 100%;
       height: 3.046rem;
       background: var(--color-grey-4);
       border-radius: 4.06066px;

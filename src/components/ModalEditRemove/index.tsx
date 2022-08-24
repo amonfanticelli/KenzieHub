@@ -34,7 +34,7 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
         <Form onSubmit={handleSubmit(handleEditTech)}>
           <label htmlFor="title">Nome</label>
           <input
-            // value={currentObject.title}
+            disabled
             placeholder={
               currentObject === null || currentObject === undefined
                 ? "Tecnologia"
@@ -50,15 +50,19 @@ const ModalEditRemove = ({ setModalEdit, currentObject }: PropsModalEdit) => {
             <option value="Intermediário">Intermediário</option>
             <option value="Avançado">Avançado</option>
           </select>
-          <button>Editar Tecnologia</button>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              handleRemoveTech(currentObject);
-            }}
-          >
-            Remover Tecnologia
-          </button>
+
+          <div>
+            <button className="buttonSave">Salvar</button>
+            <button
+              className="buttonRemove"
+              onClick={(event) => {
+                event.preventDefault();
+                handleRemoveTech(currentObject);
+              }}
+            >
+              Remover
+            </button>
+          </div>
         </Form>
       </div>
     </Container>

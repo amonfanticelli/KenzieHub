@@ -18,6 +18,9 @@ import Modal from "../../components/ModalAddTech";
 import { useState } from "react";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("@token");
+  !token && navigate("../");
   const {
     login,
     handleGetUserId,
@@ -27,8 +30,6 @@ const Dashboard = () => {
   } = useContext(UserContext);
   const [isModalOpen, setModal] = useState(false);
   const [isModalEditOpen, setModalEdit] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     handleGetUserId();
@@ -100,4 +101,5 @@ const Dashboard = () => {
     </motion.div>
   );
 };
+
 export default Dashboard;

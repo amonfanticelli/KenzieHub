@@ -13,8 +13,10 @@ export const Container = styled.div`
   position: fixed;
 
   div {
-    width: 400px;
-    height: 350px;
+  
+    min-width: 300px;
+    width: 20%;
+
     background: var(--color-grey-3);
     box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
@@ -24,9 +26,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: space-between;
       padding: 12px 20px;
-      gap: 10px;
       align-items: center;
-
       height: 50px;
       background-color: var(--color-grey-2);
       .titleTecnology {
@@ -47,10 +47,10 @@ export const Container = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  height: 85%;
   gap: 20px;
   justify-content: center;
   align-items: center;
+  padding: 20px 0px;
 
   label {
     width: 90%;
