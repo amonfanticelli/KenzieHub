@@ -127,7 +127,6 @@ export const UserProvider = ({ children }: UserProps) => {
       .then((response) => {
         techEdited();
         handleGetUserId();
-        setModalEdit(false);
       })
       .catch((err) => console.warn(err));
   };
@@ -138,11 +137,8 @@ export const UserProvider = ({ children }: UserProps) => {
       .then((response) => {
         if (response.status === 200) {
           setLogin(response.data.user);
-          console.warn(login);
           window.localStorage.setItem("@token", response.data.token);
-
           window.localStorage.setItem("@userId", response.data.user.id);
-
           navigate(`/Dashboard/${response.data.user.id}`);
         }
       })
@@ -158,7 +154,6 @@ export const UserProvider = ({ children }: UserProps) => {
         techs: Tech[];
       }>(`/users/${userId}`)
       .then((response) => {
-        console.log(response.data);
         const userData = {
           name: response.data.name,
           course_module: response.data.course_module,
@@ -181,6 +176,7 @@ export const UserProvider = ({ children }: UserProps) => {
       .then((response) => {
         techCreated();
         handleGetUserId();
+        setModal(false);
       })
       .catch((err) => console.warn(err));
   };

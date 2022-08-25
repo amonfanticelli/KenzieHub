@@ -14,6 +14,7 @@ interface InputProps {
   type: string;
   error?: FieldError;
   placeholder: string;
+  autoComplete?: string;
 }
 
 // interface Iref {
@@ -22,7 +23,15 @@ interface InputProps {
 
 const Input = forwardRef(
   (
-    { id, label, error, type, placeholder, ...register }: InputProps,
+    {
+      id,
+      label,
+      error,
+      type,
+      placeholder,
+      autoComplete,
+      ...register
+    }: InputProps,
     ref: React.LegacyRef<HTMLInputElement>
   ) => (
     <>

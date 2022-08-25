@@ -12,10 +12,8 @@ import { UserContext, UserLogin } from "../../contexts/UserContext";
 const Login = () => {
   const { handleLogin } = useContext(UserContext);
 
-  let inputType = "password";
   const [visible, setVisibility] = useState("password");
   const changeInputType = () => {
-    console.warn(inputType);
     visible === "password" ? setVisibility("text") : setVisibility("password");
   };
 
@@ -56,6 +54,7 @@ const Login = () => {
           type={visible}
           placeholder="Senha"
           {...register("password")}
+          autoComplete="on"
         />{" "}
         <FaRegEye
           onClick={() => changeInputType()}

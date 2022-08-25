@@ -90,19 +90,6 @@ export const RegisterForm = styled.form`
     color: var(--color-grey-0);
   }
 
-  /* .inputContainer {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    svg {
-      position: absolute;
-      color: red;
-      right: 10%;
-      bottom: 30%;
-    }
-  } */
-
   input {
     width: 90%;
     height: 2.8rem;
