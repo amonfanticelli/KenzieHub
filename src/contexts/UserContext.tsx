@@ -127,6 +127,7 @@ export const UserProvider = ({ children }: UserProps) => {
       .then((response) => {
         techEdited();
         handleGetUserId();
+        setModalEdit(false);
       })
       .catch((err) => console.warn(err));
   };
