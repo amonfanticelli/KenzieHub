@@ -58,9 +58,7 @@ export const RegisterForm = styled.form`
   gap: 0.5rem;
 
   width: 20%;
-  height: 82%;
-  min-height: 800px;
-  max-height: 800px;
+  padding: 10px 0px;
 
   background-color: var(--color-grey-3);
   box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
