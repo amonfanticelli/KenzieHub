@@ -85,7 +85,7 @@ export const UserProvider = ({ children }: UserProps) => {
     toast.error("Senha ou email incorreto!", { autoClose: 1000 });
 
   const accountError = () =>
-    toast.error("Ops! Algo deu errado", {
+    toast.error("Ops! Email já cadastrado", {
       autoClose: 1000,
       position: "top-left",
     });
