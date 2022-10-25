@@ -39,6 +39,7 @@ export const Error = styled.div`
     opacity: 1;
   }
   span {
+    width: 200px;
     position: absolute;
     background-color: #f10;
     padding: 4px 15px;
