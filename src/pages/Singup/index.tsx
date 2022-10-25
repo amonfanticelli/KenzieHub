@@ -18,10 +18,12 @@ const Singup = () => {
     password: yup
       .string()
       .required("Senha obrigatória")
-      .matches(
-        /[A-Z]([a-z])(\d)(\W).{8,}/,
-        "deve conter ao menos uma letra maiúscula, uma letra minúscula, um número, um caracter especial, e ao menos 8 dígitos"
-      ),
+      .matches(/[A-Z]/, "deve conter ao menos 1 letra maiúscula")
+      .matches(/([a-z])/, "deve conter ao menos 1 letra minúscula")
+      .matches(/(\d)/, "deve conter ao menos 1 número")
+      .matches(/(\W)/, "deve conter ao menos 1 caracter especial")
+      .matches(/.{8,}/, "deve conter ao menos 8 dígitos"),
+
     userPasswordCheck: yup
       .string()
       .oneOf([yup.ref("password")], "A senha não está igual a digitada"),
