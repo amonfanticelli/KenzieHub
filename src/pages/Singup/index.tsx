@@ -18,18 +18,36 @@ const Singup = () => {
     password: yup
       .string()
       .required("Senha obrigatória")
-      .matches(/[A-Z]/, "deve conter ao menos 1 letra maiúscula")
-      .matches(/([a-z])/, "deve conter ao menos 1 letra minúscula")
-      .matches(/(\d)/, "deve conter ao menos 1 número")
-      .matches(/(\W)/, "deve conter ao menos 1 caracter especial")
-      .matches(/.{8,}/, "deve conter ao menos 8 dígitos"),
+      .matches(
+        /[A-Z]/,
+        "Deve conter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e deve ter pelo menos 8 dígitos"
+      )
+      .matches(
+        /([a-z])/,
+        "Deve conter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e deve ter pelo menos 8 dígitos"
+      )
+      .matches(
+        /(\d)/,
+        "Deve conter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e deve ter pelo menos 8 dígitos"
+      )
+      .matches(
+        /(\W)/,
+        "Deve conter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e deve ter pelo menos 8 dígitos"
+      )
+      .matches(
+        /.{8,}/,
+        "Deve conter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 caracter especial e deve ter pelo menos 8 dígitos"
+      ),
 
     userPasswordCheck: yup
       .string()
       .oneOf([yup.ref("password")], "A senha não está igual a digitada"),
     bio: yup.string().required("Bio obrigatória"),
     contact: yup.string().required("Contato obrigatório"),
-
+    // .matches(
+    //   /^\(\d{2}\) \d{1} \d{4}-\d{4}$/,
+    //   "telefone inválido, ex:(99) 9 9999-9999"
+    // ),
     course_module: yup.string().required("Módulo obrigatório"),
   });
   const {
