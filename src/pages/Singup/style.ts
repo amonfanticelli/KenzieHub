@@ -123,7 +123,7 @@ export const RegisterForm = styled.form`
 
     &:hover {
       background-color: var(--color-primary);
-      transition: 0.8s;
+      transition: 0.4s;
     }
   }
   select {
