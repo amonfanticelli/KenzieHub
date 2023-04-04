@@ -13,7 +13,6 @@ export const Container = styled.div`
   position: fixed;
 
   div {
-  
     min-width: 300px;
     width: 20%;
 

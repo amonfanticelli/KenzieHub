@@ -15,7 +15,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { RiFileEditLine } from "react-icons/ri";
 import ModalEditRemove from "../../components/ModalEditRemove";
 import Modal from "../../components/ModalAddTech";
-import DashboardImg from "../../img/remote-team.svg";
+import DashboardImg from "../../assets/remote-team.svg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
