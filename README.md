@@ -1,25 +1,35 @@
 # Kenzie Hub
 
-# Descrição da aplicação:
+A front-end application for developers to manage their tech stack and track learning progress.
 
-Projeto feito em React e TypeScript. Consumo de API com autenticação de usuário. Usuário pode visualizar suas tecnologias, postar novas tecnologias além de editá-las e removê-las.
+![Preview](./kenziehub.jpg)
 
-## Tecnologias/ferramentas utilizadas na aplicação:
+## Technologies
 
-- ReactJS
+- React
 - TypeScript
-- styled-components
-- axios
-- react-hook-form
-- react-icons
-- react-router-dom
-- yup
-- Context-api
+- Styled Components
+- React Hook Form
+- Yup
+- Axios
+- Framer Motion
+- React Toastify
 
-## Antes de iniciar a aplicação, rode o seguinte comando para instalar as dependências:
+## Features
 
-`npm install`
+- User registration and authentication
+- Protected dashboard route via JWT token
+- Add, edit, and remove technologies from your personal list
+- Track learning status per technology
+- Form validation on login and registration
 
-## Para inicializar a aplicação localmente, execute:
+## Getting Started
 
-`npm start`
+```bash
+yarn install
+yarn dev
+```
+
+## Note
+
+The original external API (Kenzie Academy) has been discontinued. The application will not function without a running backend. A local mock backend can be set up using json-server-auth — see the routes and data contract in `src/services/api.ts`.
